@@ -1,6 +1,8 @@
 package com.bluckham.dao;
 
+import com.bluckham.config.ConnectionInformation;
 import com.bluckham.model.Blog;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.security.NoSuchAlgorithmException;
@@ -16,6 +18,9 @@ public class KitchenDAO {
     private final Logger logger = Logger.getLogger(KitchenDAO.class.getName());
     private final Connection connection;
 
+    @Autowired
+    ConnectionInformation ci;
+
     public KitchenDAO() {
         connection = connect();
     }
@@ -24,9 +29,7 @@ public class KitchenDAO {
         Connection conn = null;
         try {
             var url = "jdbc:postgresql://localhost:2342/inventory";
-            var user = "postgres";
-            var password = "password";
-            conn = DriverManager.getConnection(url, user, password);
+            conn = DriverManager.getConnection(url, ci.getUserName(), ci.getPassword());
             logger.info("Connection setup");
         } catch (SQLException e) {
             logger.severe(e.getMessage());
