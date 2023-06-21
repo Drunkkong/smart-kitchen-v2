@@ -1,0 +1,4 @@
+---
+database:
+  username: foo
+  password: bar
