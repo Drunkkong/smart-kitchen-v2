@@ -2,6 +2,7 @@ package com.bluckham.dao;
 
 import com.bluckham.config.ConnectionInformation;
 import com.bluckham.model.Blog;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
