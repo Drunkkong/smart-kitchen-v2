@@ -7,14 +7,17 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ConfigurationProperties
-
 public class ConnectionInformation {
 
     @Getter
-    @Value("${database.username}")
-    String userName;
+    @Value("${spring.datasource.username}")
+    String username;
 
     @Getter
-    @Value("${database.password}")
+    @Value("${spring.datasource.password}")
     String password;
+
+    @Getter
+    @Value("${spring.datasource.url}")
+    String url;
 }

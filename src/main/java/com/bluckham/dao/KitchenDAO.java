@@ -19,8 +19,7 @@ public class KitchenDAO {
     private final Logger logger = Logger.getLogger(KitchenDAO.class.getName());
     private final Connection connection;
 
-    @Autowired
-    ConnectionInformation ci;
+    private final ConnectionInformation ci = new ConnectionInformation();
 
     public KitchenDAO() {
         connection = connect();
@@ -29,8 +28,8 @@ public class KitchenDAO {
     private Connection connect() {
         Connection conn = null;
         try {
-            var url = "jdbc:postgresql://localhost:2342/inventory";
-            conn = DriverManager.getConnection(url, ci.getUserName(), ci.getPassword());
+            var url = "jdbc:h2:data/smart_kitchen";
+            conn = DriverManager.getConnection(url, ci.getUsername(), ci.getPassword());
             logger.info("Connection setup");
         } catch (SQLException e) {
             logger.severe(e.getMessage());

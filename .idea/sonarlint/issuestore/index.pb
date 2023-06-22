@@ -5,14 +5,10 @@ S
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 9
 	README.md,8\e\8ec9a00bfd09b3190ac6b22251dbb1aa95a0579d
-7
-pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 ^
 .src/main/java/com/bluckham/dao/WebScraper.java,0\7\070245d46e30585e79fc9f079a2f2e22451fac50
 Z
 *src/main/java/com/bluckham/model/Blog.java,2\2\22fa474a5d3cd8a3a1b08b1228eed6a4a849d3a8
-^
-.src/main/java/com/bluckham/util/Constants.java,1\4\14cac5d51bd4f74d6b49d3c03754e3ce98bf9150
 Å
 Q.idea/sonarlint/securityhotspotstore/0/7/070245d46e30585e79fc9f079a2f2e22451fac50,6\7\677673da21574021fec6d7517761cc4ea4ebc99b
 w
@@ -50,5 +46,3 @@ Q.idea/sonarlint/securityhotspotstore/9/f/9fe84ebb15faf917b7def6236dba604453cc61
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
-l
-<src/main/java/com/bluckham/config/ConnectionInformation.java,e\f\ef15f2c924fec81a571252591e067934a684376f
