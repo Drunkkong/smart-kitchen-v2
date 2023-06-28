@@ -19,7 +19,6 @@ public class KitchenDAO {
     private final Logger logger = Logger.getLogger(KitchenDAO.class.getName());
     private final Connection connection;
 
-    @Autowired
     private ConnectionInformation connectionInformation;
 
     public KitchenDAO() {
@@ -27,18 +26,17 @@ public class KitchenDAO {
     }
 
     private Connection connect() {
-        Connection conn = null;
-        try {
+        try(Connection conn = DriverManager.getConnection(connectionInformation.url(), connectionInformation.username(), connectionInformation.password())){
             logger.log(Level.CONFIG, () -> connectionInformation.url());
             logger.log(Level.CONFIG, () -> connectionInformation.username());
             logger.log(Level.CONFIG, () -> connectionInformation.password());
-            conn = DriverManager.getConnection(connectionInformation.url(), connectionInformation.username(), connectionInformation.password());
             logger.info("Connection setup");
-        } catch (SQLException e) {
+            return conn;
+        } catch (Exception e) {
             logger.severe(e.getMessage());
             System.exit(500);
         }
-        return conn;
+        return null;
     }
 
     public Blog getRandomRecipe() {
