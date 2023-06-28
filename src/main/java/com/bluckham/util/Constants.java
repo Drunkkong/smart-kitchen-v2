@@ -1,5 +1,8 @@
 package com.bluckham.util;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class Constants {
     public static final String CHROME = "CHROME";
     public static final String ABS_HREF = "abs:href";

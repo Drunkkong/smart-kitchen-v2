@@ -19,7 +19,7 @@ public class WebScraper {
     private static final Logger logger = Logger.getLogger(WebScraper.class.getName());
 
     // TODO
-    public String getRandomRecipe(Blog blog) {
+    public String getRandomRecipe(Blog blog, String keyword) {
         Document document = null;
         Set<String> recipeSet = new HashSet<>();
         var rand = new Random(System.currentTimeMillis());
@@ -27,7 +27,7 @@ public class WebScraper {
             case "hot for food":
                 try {
                     document =
-                            Jsoup.connect(blog.getUrl()).data("s", "seitan").userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
+                            Jsoup.connect(blog.getUrl()).data("s", keyword).userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
                 } catch (IOException e) {
                     logger.severe(e.getMessage());
                     System.exit(1);
@@ -39,7 +39,7 @@ public class WebScraper {
             case "avant garde vegan":
                 try {
                     document =
-                            Jsoup.connect("https://www.avantgardevegan.com/recipes").data("_sf_s", "sandwich").userAgent(
+                            Jsoup.connect("https://www.avantgardevegan.com/recipes").data("_sf_s", keyword).userAgent(
                                     Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
                 } catch (IOException e) {
                     logger.severe(e.getMessage());
@@ -53,7 +53,7 @@ public class WebScraper {
             case "nora cooks", "minimalist baker":
                 try {
                     document =
-                            Jsoup.connect(blog.getUrl()).data("s", "seitan").userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
+                            Jsoup.connect(blog.getUrl()).data("s", keyword).userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
                 } catch (IOException e) {
                     logger.severe(e.getMessage());
                     System.exit(1);

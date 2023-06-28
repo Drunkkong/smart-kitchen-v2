@@ -2,7 +2,6 @@ package com.bluckham.dao;
 
 import com.bluckham.config.ConnectionInformation;
 import com.bluckham.model.Blog;
-import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,6 +11,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Repository
@@ -19,7 +19,8 @@ public class KitchenDAO {
     private final Logger logger = Logger.getLogger(KitchenDAO.class.getName());
     private final Connection connection;
 
-    private final ConnectionInformation ci = new ConnectionInformation();
+    @Autowired
+    private ConnectionInformation connectionInformation;
 
     public KitchenDAO() {
         connection = connect();
@@ -28,8 +29,10 @@ public class KitchenDAO {
     private Connection connect() {
         Connection conn = null;
         try {
-            var url = "jdbc:h2:data/smart_kitchen";
-            conn = DriverManager.getConnection(url, ci.getUsername(), ci.getPassword());
+            logger.log(Level.CONFIG, () -> connectionInformation.url());
+            logger.log(Level.CONFIG, () -> connectionInformation.username());
+            logger.log(Level.CONFIG, () -> connectionInformation.password());
+            conn = DriverManager.getConnection(connectionInformation.url(), connectionInformation.username(), connectionInformation.password());
             logger.info("Connection setup");
         } catch (SQLException e) {
             logger.severe(e.getMessage());
