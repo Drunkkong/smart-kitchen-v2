@@ -2,6 +2,7 @@ package com.bluckham.dao;
 
 import com.bluckham.config.ConnectionInformation;
 import com.bluckham.model.Blog;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -51,8 +52,8 @@ public class KitchenDAO {
         return blog;
     }
 
-    public String getSpecificBlogRecipe(String blogName, String recipeName) {
-        try (PreparedStatement ps = connection.prepareStatement("SELECT TOP 1 url FROM blogs WHERE blog LIKE ? AND name LIKE ?;")) {
+    public String getSpecificBlogRecipe(@NotNull String blogName, @NotNull String recipeName) {
+        try (PreparedStatement ps = connection.prepareStatement("SELECT TOP 1 url FROM recipes WHERE blog LIKE ? AND name LIKE ?;")) {
             ps.setString(1, blogName);
             ps.setString(2, recipeName);
             ResultSet rs = ps.executeQuery();
