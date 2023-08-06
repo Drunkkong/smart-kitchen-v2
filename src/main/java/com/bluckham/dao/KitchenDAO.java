@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,6 +46,8 @@ public class KitchenDAO {
             while (rs.next()) {
                 blog.setName(rs.getString("name"));
                 blog.setUrl(rs.getString("url"));
+                blog.setQuery(rs.getString("query"));
+                blog.setSearchType(rs.getString("searchType"));
             }
         } catch (SQLException sqlException) {
             logger.severe(sqlException.getMessage());
@@ -66,5 +70,25 @@ public class KitchenDAO {
             System.exit(1);
         }
         return null;
+    }
+
+    public List<Blog> getAllBlogs() {
+        ArrayList<Blog> blogList = new ArrayList<>();
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM blogs")) {
+            ResultSet rs = ps.executeQuery();
+
+            while (rs.next()) {
+                var blog = new Blog();
+                blog.setName(rs.getString("name"));
+                blog.setUrl(rs.getString("url"));
+                blog.setQuery(rs.getString("query"));
+                blog.setSearchType(rs.getString("searchType"));
+                blogList.add(blog);
+            }
+        } catch (SQLException sqlException) {
+            logger.severe(sqlException.getMessage());
+            System.exit(1);
+        }
+        return blogList;
     }
 }

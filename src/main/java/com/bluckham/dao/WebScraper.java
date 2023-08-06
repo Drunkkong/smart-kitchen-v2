@@ -1,6 +1,8 @@
 package com.bluckham.dao;
 
 import com.bluckham.model.Blog;
+import com.bluckham.model.Meal;
+import com.bluckham.model.MealType;
 import com.bluckham.util.Constants;
 import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
@@ -9,9 +11,8 @@ import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.Random;
-import java.util.Set;
+import java.time.DayOfWeek;
+import java.util.*;
 import java.util.logging.Logger;
 
 @Component
@@ -47,5 +48,28 @@ public class WebScraper {
         }
 
         return document.data();
+    }
+
+    // TODO Look to reduce looping
+    public Map<DayOfWeek, List<Meal>> getWeeklyMeals(@NotNull List<Blog> blogList) {
+        EnumMap<DayOfWeek, List<Meal>> weekOfMeals = new EnumMap<>(DayOfWeek.class);
+        var rand = new Random(System.currentTimeMillis());
+        ArrayList<Meal> mealsOfDay;
+
+        for (DayOfWeek day : DayOfWeek.values()) {
+            mealsOfDay = new ArrayList<>();
+            var meal = new Meal();
+
+            for (MealType type : MealType.values()) {
+                meal.setDay(day);
+                meal.setType(type);
+                meal.setUrl(getRandomRecipe(blogList.get(rand.nextInt(blogList.size())), type.getValue()));
+
+                mealsOfDay.add(meal);
+            }
+
+            weekOfMeals.put(day, mealsOfDay);
+        }
+        return weekOfMeals;
     }
 }
