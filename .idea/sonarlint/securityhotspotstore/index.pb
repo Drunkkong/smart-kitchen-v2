@@ -4,10 +4,6 @@ S
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
 Å
-Q.idea/sonarlint/securityhotspotstore/2/2/22fa474a5d3cd8a3a1b08b1228eed6a4a849d3a8,8\1\81886d883119815f870136aaeecd6c895aa9c5f5
-w
-G.idea/sonarlint/issuestore/2/2/22fa474a5d3cd8a3a1b08b1228eed6a4a849d3a8,7\d\7de046cd4842cbd2d6091b278b3e4ae8c7b2ee95
-Å
 Q.idea/sonarlint/securityhotspotstore/8/8/88a9255124c95bdc913197c120a8d560edc59c8e,9\0\909762385fc6eb20f922a91c6865741308b57f2c
 w
 G.idea/sonarlint/issuestore/8/8/88a9255124c95bdc913197c120a8d560edc59c8e,a\e\ae9ddf453f55affea2d6b9e3973cac1eb2efb4e1
@@ -28,7 +24,3 @@ Q.idea/sonarlint/securityhotspotstore/9/f/9fe84ebb15faf917b7def6236dba604453cc61
 pom.xml,4\4\442292b8a7efeabbe4cc176709b833b1792140ec
 e
 5src/main/java/com/bluckham/api/SmartKitchenBrain.java,b\d\bd46cf491ec6ed2e21833750e3c98385fa3bd9c3
-^
-.src/main/java/com/bluckham/dao/KitchenDAO.java,8\1\81aa952028706402f71fd9e4e395aadf3680cab6
-l
-<src/main/java/com/bluckham/config/ConnectionInformation.java,e\f\ef15f2c924fec81a571252591e067934a684376f
