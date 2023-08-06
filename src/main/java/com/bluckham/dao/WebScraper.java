@@ -23,47 +23,17 @@ public class WebScraper {
         Document document = null;
         Set<String> recipeSet = new HashSet<>();
         var rand = new Random(System.currentTimeMillis());
-        switch (blog.getName().toLowerCase(Locale.ROOT)) {
-            case "hot for food":
-                try {
-                    document =
-                            Jsoup.connect(blog.getUrl()).data("s", keyword).userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
-                } catch (IOException e) {
-                    logger.severe(e.getMessage());
-                    System.exit(1);
-                }
-                for (Element element : document.select("a[href*=/recipes/]"))
-                    recipeSet.add(element.attr(Constants.ABS_HREF));
-
-                return (String) recipeSet.toArray()[rand.nextInt(recipeSet.size())];
-            case "avant garde vegan":
-                try {
-                    document =
-                            Jsoup.connect("https://www.avantgardevegan.com/recipes").data("_sf_s", keyword).userAgent(
-                                    Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
-                } catch (IOException e) {
-                    logger.severe(e.getMessage());
-                    System.exit(1);
-                }
-
-                for (Element element : document.select("a[href*=/recipes/]"))
-                    recipeSet.add((element.attr(Constants.ABS_HREF)));
-
-                return (String) recipeSet.toArray()[rand.nextInt(recipeSet.size())];
-            case "nora cooks", "minimalist baker":
-                try {
-                    document =
-                            Jsoup.connect(blog.getUrl()).data("s", keyword).userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
-                } catch (IOException e) {
-                    logger.severe(e.getMessage());
-                    System.exit(1);
-                }
-                for (Element element : document.select("a[href]"))
-                    recipeSet.add(element.attr(Constants.ABS_HREF));
-
-                return (String) recipeSet.toArray()[rand.nextInt(recipeSet.size())];
-            default:
-                return null;
+        try {
+            document =
+                    Jsoup.connect(blog.getUrl()).data(blog.getSearchType(), keyword).userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
+        } catch (IOException e) {
+            logger.severe(e.getMessage());
+            System.exit(1);
         }
+
+        for (Element element : document.select(blog.getQuery()))
+            recipeSet.add(element.attr(Constants.ABS_HREF));
+
+        return (String) recipeSet.toArray()[rand.nextInt(recipeSet.size())];
     }
 }
