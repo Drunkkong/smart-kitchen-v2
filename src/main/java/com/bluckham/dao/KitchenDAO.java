@@ -9,26 +9,23 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Repository
 public class KitchenDAO {
     private final Logger logger = Logger.getLogger(KitchenDAO.class.getName());
     private final Connection connection;
+    private final ConnectionInformation connectionInformation;
 
     @Autowired
-    private ConnectionInformation connectionInformation;
-
-    public KitchenDAO() {
-        connection = connect();
+    public KitchenDAO(ConnectionInformation connectionInformation) {
+        this.connectionInformation = connectionInformation;
+        this.connection = connect();
     }
 
     private Connection connect() {
-        try(Connection conn = DriverManager.getConnection(connectionInformation.url(), connectionInformation.username(), connectionInformation.password())) {
-            logger.log(Level.CONFIG, () -> connectionInformation.url());
-            logger.log(Level.CONFIG, () -> connectionInformation.username());
-            logger.log(Level.CONFIG, () -> connectionInformation.password());
+        try {
+            Connection conn = DriverManager.getConnection(connectionInformation.url(), connectionInformation.username(), connectionInformation.password());
             logger.info("Connection setup");
             return conn;
         } catch (Exception e) {
@@ -40,9 +37,7 @@ public class KitchenDAO {
 
     public Blog getRandomRecipe() {
         var blog = new Blog();
-        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM blogs ORDER BY RANDOM() LIMIT 1;")) {
-            ResultSet rs = ps.executeQuery();
-
+        try (ResultSet rs = connection.prepareStatement("SELECT * FROM blogs ORDER BY RANDOM() LIMIT 1;").executeQuery()) {
             while (rs.next()) {
                 blog.setName(rs.getString("name"));
                 blog.setUrl(rs.getString("url"));
@@ -74,7 +69,7 @@ public class KitchenDAO {
 
     public List<Blog> getAllBlogs() {
         ArrayList<Blog> blogList = new ArrayList<>();
-        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM blogs")) {
+        try (PreparedStatement ps = connection.prepareStatement("SELECT * FROM blogs;")) {
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {

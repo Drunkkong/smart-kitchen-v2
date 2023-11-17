@@ -10,8 +10,12 @@ import org.springframework.boot.context.properties.ConfigurationPropertiesScan;
 @SpringBootApplication
 @ConfigurationPropertiesScan
 public class SmartKitchen implements CommandLineRunner {
+    private final SmartKitchenBrain smartKitchenBrain;
+
     @Autowired
-    SmartKitchenBrain smartKitchenBrain;
+    public SmartKitchen(SmartKitchenBrain smartKitchenBrain) {
+        this.smartKitchenBrain = smartKitchenBrain;
+    }
 
     public static void main(String[] args) {
         SpringApplication.run(SmartKitchen.class, args);

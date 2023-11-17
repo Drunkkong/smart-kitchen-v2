@@ -9,11 +9,14 @@ import org.springframework.stereotype.Controller;
 
 @Controller
 public class SmartKitchenBrain {
-    @Autowired
-    private KitchenDAO dao;
-    @Autowired
-    private WebScraper scraper;
+    private final KitchenDAO dao;
+    private final WebScraper scraper;
 
+    @Autowired
+    public SmartKitchenBrain(KitchenDAO dao, WebScraper webScraper) {
+        this.dao = dao;
+        this.scraper = webScraper;
+    }
     private static final Logger logger = LoggerFactory.getLogger(SmartKitchenBrain.class);
 
     public void smartKitchenTest() {
