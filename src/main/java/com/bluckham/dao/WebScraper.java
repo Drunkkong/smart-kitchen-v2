@@ -8,16 +8,17 @@ import org.jetbrains.annotations.NotNull;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.util.*;
-import java.util.logging.Logger;
 
 @Component
 public class WebScraper {
-    private static final Logger logger = Logger.getLogger(WebScraper.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(WebScraper.class.getName());
 
     public String getRandomRecipe(@NotNull Blog blog, @NotNull String keyword) {
         Document document = null;
@@ -27,7 +28,7 @@ public class WebScraper {
             document =
                     Jsoup.connect(blog.getUrl()).data(blog.getSearchType(), keyword).userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
         } catch (IOException e) {
-            logger.severe(e.getMessage());
+            logger.error(e.getMessage());
             System.exit(1);
         }
 
@@ -43,7 +44,7 @@ public class WebScraper {
         try {
             document = Jsoup.connect(url).userAgent(Constants.CHROME).timeout(Constants.DEFAULT_TIMEOUT).get();
         } catch (IOException ioException) {
-            logger.severe(ioException.getMessage());
+            logger.error(ioException.getMessage());
             System.exit(1);
         }
 
@@ -57,15 +58,17 @@ public class WebScraper {
         ArrayList<Meal> mealsOfDay;
 
         for (DayOfWeek day : DayOfWeek.values()) {
+            logger.debug("Day {}", day);
             mealsOfDay = new ArrayList<>();
             var meal = new Meal();
 
             for (MealType type : MealType.values()) {
-                meal.setDay(day);
                 meal.setType(type);
                 meal.setUrl(getRandomRecipe(blogList.get(rand.nextInt(blogList.size())), type.getValue()));
 
                 mealsOfDay.add(meal);
+                logger.debug("Meal {}", meal);
+                meal = new Meal();
             }
 
             weekOfMeals.put(day, mealsOfDay);
