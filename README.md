@@ -1,7 +1,5 @@
 # Smart Kitchen
 
-[toc]
-
 ## Phase 0
 
 * External Database to store inventory
@@ -12,7 +10,7 @@
 ## Phase 1
 
 * External database update
-    * Store recipes, favorited, disliked, name, category, cook time
+    * Store recipes, favorite, disliked, name, category, cook time
 * Code updated to include filtering/sorting
     * Sorting to include meal type, cuisine, cook time
         * Meal Type: Breakfast, Lunch, Snack,...
